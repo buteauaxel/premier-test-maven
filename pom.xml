@@ -13,9 +13,34 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>3.8.1</junit.version>
+		<properties>
+			<profiles>
+				<profile>
+					<id>dev</id>
+					<activation>
+						<activeByDefault>true</activeByDefault>
+					</activation>
+					<properties>
+						<mode>DEV</mode>
+					</properties>
+				</profile>
+				<profile>
+					<id>prod</id>
+					<properties>
+						<mode>PROD</mode>
+					</properties>
+				</profile>
+			</profiles>
+		</properties>
 	</properties>
 	<build>
 		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -24,7 +49,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>dev.App</mainClass>
+							<mainClass>dev.App</mainClass> <!-- Definition du plugin -->
 						</manifest>
 					</archive>
 				</configuration>
@@ -39,7 +64,6 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						
 					</execution>
 				</executions>
 			</plugin>
@@ -48,7 +72,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.lalyos</groupId>
-			<artifactId>jfiglet</artifactId>
+			<artefactId>jfiglet</artefactId>
 			<version>0.0.3</version>
 		</dependency>
 		<dependency>
